@@ -6,9 +6,7 @@ let todosJson = JSON.parse(localStorage.getItem("todos")) || [];
 const deleteAllButton = document.querySelector(".delete-all");
 const filters = document.querySelectorAll(".filter");
 let filter = '';
-
 showTodos();
-
 function getTodoHtml(todo, index) {
   if (filter && filter != todo.status) {
     return '';
@@ -24,7 +22,6 @@ function getTodoHtml(todo, index) {
     </li>
   `; 
 }
-
 function showTodos() {
   if (todosJson.length == 0) {
     todosHtml.innerHTML = '';
@@ -34,14 +31,12 @@ function showTodos() {
     emptyImage.style.display = 'none';
   }
 }
-
 function addTodo(todo)  {
   input.value = "";
   todosJson.unshift({ name: todo, status: "pending" });
   localStorage.setItem("todos", JSON.stringify(todosJson));
   showTodos();
 }
-
 input.addEventListener("keyup", e => {
   let todo = input.value.trim();
   if (!todo || e.key != "Enter") {
@@ -49,7 +44,6 @@ input.addEventListener("keyup", e => {
   }
   addTodo(todo);
 });
-
 addButton.addEventListener("click", () => {
   let todo = input.value.trim();
   if (!todo) {
@@ -57,7 +51,6 @@ addButton.addEventListener("click", () => {
   }
   addTodo(todo);
 });
-
 function updateStatus(todo) {
   let todoName = todo.parentElement.lastElementChild;
   if (todo.checked) {
@@ -69,14 +62,12 @@ function updateStatus(todo) {
   }
   localStorage.setItem("todos", JSON.stringify(todosJson));
 }
-
 function remove(todo) {
   const index = todo.dataset.index;
   todosJson.splice(index, 1);
   showTodos();
   localStorage.setItem("todos", JSON.stringify(todosJson));
 }
-
 filters.forEach(function (el) {
   el.addEventListener("click", (e) => {
     if (el.classList.contains('active')) {
@@ -90,7 +81,6 @@ filters.forEach(function (el) {
     showTodos();
   });
 });
-
 deleteAllButton.addEventListener("click", () => {
   todosJson = [];
   localStorage.setItem("todos", JSON.stringify(todosJson));
